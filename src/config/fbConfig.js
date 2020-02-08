@@ -4,14 +4,14 @@ import 'firebase/auth'
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
-    apiKey: "AIzaSyDqYprWCKDtD0w8J0raT1uzNTxN357MNso",
-    authDomain: "going-rogue.firebaseapp.com",
-    databaseURL: "https://going-rogue.firebaseio.com",
-    projectId: "going-rogue",
-    storageBucket: "going-rogue.appspot.com",
-    messagingSenderId: "702357719614",
-    appId: "1:702357719614:web:bdcf4f560fac7dd4f99f6f",
-    measurementId: "G-8KHEMR0XDC"
+    apiKey: "AIzaSyDtOMz5_Abnd8Et1EHB16oAb_KCgd5x0F0",
+    authDomain: "rogue-model.firebaseapp.com",
+    databaseURL: "https://rogue-model.firebaseio.com",
+    projectId: "rogue-model",
+    storageBucket: "rogue-model.appspot.com",
+    messagingSenderId: "804059970146",
+    appId: "1:804059970146:web:03410f366b065254552f3b",
+    measurementId: "G-X20VX16S5P"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
