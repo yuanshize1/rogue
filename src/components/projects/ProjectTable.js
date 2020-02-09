@@ -8,7 +8,7 @@ import ProjectLinks from '../layout/ProjectLinks'
 
 class ProjectTable extends Component {
     render(){
-        console.log(this.props)
+        //console.log(this.props)
         const { projects, auth, match } = this.props;
 
         if(!auth.uid) return <Redirect to='/signin' />

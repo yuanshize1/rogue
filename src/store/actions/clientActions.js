@@ -23,6 +23,26 @@ export const createClient = (client) => {
     
 };
 
-export const deleteClient = (client) => {
-    console.log("dispatch", client)
+export const editClient = (client, id) => {
+    //dispatch method dispatches action to reducer
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        //make async call to database
+        const firestore = getFirestore();
+        firestore.collection('clients').doc(id).update({
+            firstName: client.firstName,
+            lastName: client.lastName,
+            role: client.role,
+            email: client.email,
+            primaryContact: client.primaryContact,
+            secondaryContact: client.secondaryContact
+        }).then(() => {
+            dispatch({type: 'UPDATE_CLIENT', client })
+        }).catch((err) => {
+            dispatch({type: 'UPDATE_CLIENT_ERROR', err })
+        })
+
+
+       
+    }
+    
 };

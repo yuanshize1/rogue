@@ -28,7 +28,7 @@ class CreateProject extends Component {
         this.props.history.push('/client/'+this.props.match.params.id+'/projects')
     }
     render() {
-        console.log(this.props)
+        //console.log(this.props)
         const { auth } = this.props;
         if(!auth.uid) return <Redirect to='/signin' />
 

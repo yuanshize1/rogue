@@ -8,32 +8,34 @@ import ClientList from '../clients/ClientList'
 import ClientLinks from '../layout/ClientLinks'
 
 class Dashboard extends Component {
-    /*
-                <div className="dashboard container">
-                <table className="highlight">
-                    <thead>
-                        <tr>
-                            <th>Select</th>
-                            <th>Name</th>
-                            <th>Status</th>
-                            <th>Address</th>
-                            <th>Details</th>
-                        </tr>
-                    </thead>
-                    <ProjectList projects={projects} />
-                </table>
-            </div>
-    */
+    state = {
+        chosenClients: []
+    }
+
+    constructor(props) {
+        super(props);
+        this.handleListChange = this.handleListChange.bind(this);
+    }
+    
+    handleListChange (clientArr) { 
+        this.setState({
+            chosenClients: clientArr
+        })
+        
+    }
+
     render(){
-        console.log(this.props)
+        
         const { clients, auth } = this.props;
+        //console.log(clients);
+        
         if(!auth.uid) return <Redirect to='/signin' />
         return (
             <>
             <nav className="nav-extended grey">
                 <div className="container">
                     <h5 className="center">Clients</h5>
-                    <ClientLinks />  
+                    <ClientLinks chosenClients={this.state.chosenClients} />  
                 </div>
             </nav>
             <div className="dashboard container">
@@ -49,8 +51,9 @@ class Dashboard extends Component {
                             <th>Projects</th>
                         </tr>
                     </thead>
-                    <ClientList clients={clients} />
+                    <ClientList clients={clients} onChange={this.handleListChange} />
                 </table>
+            
             </div>
             </>
         )
@@ -74,7 +77,7 @@ export default compose(
 )(Dashboard)
 */
 const mapStateToProps = (state) => {
-    console.log(state);
+    //console.log(state);
     return {
         //projects: state.project.projects
         clients: state.firestore.ordered.clients,
