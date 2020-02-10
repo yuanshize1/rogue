@@ -28,6 +28,15 @@ export const editClient = (client, id) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         //make async call to database
         const firestore = getFirestore();
+        console.log(client)
+        if(client.firstName) firestore.collection('clients').doc(id).update({firstName: client.firstName})
+        if(client.lastName) firestore.collection('clients').doc(id).update({lastName: client.lastName})
+        if(client.role) firestore.collection('clients').doc(id).update({role: client.role})
+        if(client.email) firestore.collection('clients').doc(id).update({email: client.email})
+        if(client.primaryContact) firestore.collection('clients').doc(id).update({primaryContact: client.primaryContact})
+        if(client.secondaryContact) firestore.collection('clients').doc(id).update({secondaryContact: client.secondaryContact})
+        /*
+        else console.log('ll')
         firestore.collection('clients').doc(id).update({
             firstName: client.firstName,
             lastName: client.lastName,
@@ -40,7 +49,7 @@ export const editClient = (client, id) => {
         }).catch((err) => {
             dispatch({type: 'UPDATE_CLIENT_ERROR', err })
         })
-
+*/
 
        
     }

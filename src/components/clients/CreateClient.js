@@ -41,8 +41,8 @@ class CreateClient extends Component {
                         <label htmlFor="title">Last name</label>
                         <input type="text" id="lastName" onChange={this.handleChange}/>
                     </div>
-                    <select className="browser-default" id="role" onChange={this.handleChange}>
-                        <option value="" disabled selected>Choose a role</option>
+                    <select className="browser-default" id="role" onChange={this.handleChange} defaultValue="choose">
+                        <option value="choose" disabled>Choose a role</option>
                         <option value="engineer">Engineer</option>
                         <option value="manager">Manager</option>
                     </select>

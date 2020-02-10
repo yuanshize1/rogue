@@ -7,17 +7,43 @@ import { Redirect } from 'react-router-dom'
 import ProjectLinks from '../layout/ProjectLinks'
 
 class ProjectTable extends Component {
-    render(){
-        //console.log(this.props)
-        const { projects, auth, match } = this.props;
+    state = {
+        chosenProjects: [],
+        sortBy: 0
+    }
 
+    constructor(props) {
+        super(props);
+        this.handleListChange = this.handleListChange.bind(this);
+        this.handleSortChange = this.handleSortChange.bind(this);
+    }
+
+    handleListChange (projectArr) { 
+        this.setState({
+            chosenProjects: projectArr
+        })
+        
+    }
+
+    handleSortChange (sortBy) {
+        this.setState({
+            sortBy: sortBy
+        })
+    }
+    render(){
+
+        const { projects, auth, match } = this.props;
         if(!auth.uid) return <Redirect to='/signin' />
+        
         return (
             <>
                 <nav className="nav-extended grey">
                     <div className="container">
                         <h5 className="center">Projects</h5>
-                        <ProjectLinks cid={match.params.id} />  
+                        <ProjectLinks 
+                            chosenProjects={this.state.chosenProjects} 
+                            onChange={this.handleSortChange} 
+                        />   
                     </div>
                 </nav>
                 <div className="dashboard container">
@@ -31,7 +57,12 @@ class ProjectTable extends Component {
                                 <th>Details</th>
                             </tr>
                         </thead>
-                        <ProjectList projects={projects} cid={match.params.id} />
+                        <ProjectList 
+                            projects={projects} 
+                            onChange={this.handleListChange} 
+                            sortBy={this.state.sortBy} 
+                            match={match}
+                        />
                     </table>
                 </div>
             </>
@@ -40,7 +71,7 @@ class ProjectTable extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
+    //console.log(state);
     return {
         //projects: state.project.projects
         projects: state.firestore.ordered.projects,

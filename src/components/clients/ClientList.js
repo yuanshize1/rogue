@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import {withRouter} from 'react-router-dom'
+import { firestoreConnect } from 'react-redux-firebase'
+import { compose } from 'redux'
 import ClientSummary from './ClientSummary'
 
-
-//const ClientList = ({clients}) => {
 class ClientList extends Component {
     state = {
         chosenClients: []
@@ -31,9 +33,24 @@ class ClientList extends Component {
         
     }
     render() {
+        var obj = this.props.clients;
+        if (obj) {
+            if (this.props.sortBy == 1) {
+                obj.sort((a, b) => a.firstName.localeCompare(b.firstName));
+            }
+            if (this.props.sortBy == 2) {
+                obj.sort((a, b) => b.firstName.localeCompare(a.firstName));
+            }
+            if (this.props.sortBy == 3) {
+                obj.sort((a, b) => a.role.localeCompare(b.role));
+            }
+            if (this.props.sortBy == 4) {
+                obj.sort((a, b) => b.role.localeCompare(a.role));
+            }
+        }
         return (
             <tbody>
-                {this.props.clients && this.props.clients.map(client => {
+                {obj && obj.map(client => {
                     return (
                         <tr key={client.id}>
                         <td>
@@ -59,4 +76,15 @@ class ClientList extends Component {
     
 }
 
-export default ClientList
+const mapStateToProps = (state) => {
+    return {
+        clients: state.firestore.ordered.clients,
+        auth: state.firebase.auth
+    }
+}
+export default withRouter(compose(
+    connect(mapStateToProps),
+    firestoreConnect([
+        {collection: 'clients', orderBy: ['firstName', 'desc']}
+    ])
+)(ClientList))

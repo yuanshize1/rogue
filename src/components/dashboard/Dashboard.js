@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-//import ProjectList from '../projects/ProjectList'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
@@ -7,14 +6,17 @@ import { Redirect } from 'react-router-dom'
 import ClientList from '../clients/ClientList'
 import ClientLinks from '../layout/ClientLinks'
 
+
 class Dashboard extends Component {
     state = {
-        chosenClients: []
+        chosenClients: [],
+        sortBy: 0
     }
 
     constructor(props) {
         super(props);
         this.handleListChange = this.handleListChange.bind(this);
+        this.handleSortChange = this.handleSortChange.bind(this);
     }
     
     handleListChange (clientArr) { 
@@ -24,10 +26,14 @@ class Dashboard extends Component {
         
     }
 
+    handleSortChange (sortBy) {
+        this.setState({
+            sortBy: sortBy
+        })
+    }
     render(){
         
         const { clients, auth } = this.props;
-        //console.log(clients);
         
         if(!auth.uid) return <Redirect to='/signin' />
         return (
@@ -35,7 +41,7 @@ class Dashboard extends Component {
             <nav className="nav-extended grey">
                 <div className="container">
                     <h5 className="center">Clients</h5>
-                    <ClientLinks chosenClients={this.state.chosenClients} />  
+                    <ClientLinks chosenClients={this.state.chosenClients} onChange={this.handleSortChange} />  
                 </div>
             </nav>
             <div className="dashboard container">
@@ -51,11 +57,12 @@ class Dashboard extends Component {
                             <th>Projects</th>
                         </tr>
                     </thead>
-                    <ClientList clients={clients} onChange={this.handleListChange} />
+                    <ClientList clients={clients} onChange={this.handleListChange} sortBy={this.state.sortBy} />
                 </table>
             
             </div>
             </>
+            
         )
     }
 }
