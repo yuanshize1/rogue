@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom'
 const ProjectSummary = ({project}) => {
     //<td>Posted by {project.authorFirstName} {project.authorLastName}</td>
     //<td>{moment(project.createdAt.toDate()).calendar()}</td>
+    //console.log(project)
+    const link = {
+        pathname:'/client/' + project.clientId + '/projects/'+project.id,
+        project: project
+    }
     return (
         <>
             <td>{project.title}</td>
@@ -20,8 +25,13 @@ const ProjectSummary = ({project}) => {
                 {project.zipCode}
             </td>
             <td>
-                <Link to={'/'}>link</Link>
+                <Link 
+                        to={link}
+                >
+                        link
+                </Link>
             </td>
+
         </>
 
     )

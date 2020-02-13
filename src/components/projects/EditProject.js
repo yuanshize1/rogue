@@ -35,7 +35,7 @@ class EditProject extends Component {
         const { auth } = this.props;
         if(!auth.uid) return <Redirect to='/signin' />
         let tempProject = {}
-        console.log(this.props);
+        //console.log(this.props);
         
         this.props.projects.forEach(project => {
             if(project.id == this.props.match.params.id) {

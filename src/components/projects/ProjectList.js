@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
-
+import { Link } from 'react-router-dom'
+import ProjectSummary from './ProjectSummary'
 
 class ProjectList extends Component {
     state = {
@@ -39,7 +40,7 @@ class ProjectList extends Component {
         //console.table(projects)
         
         {projects && projects.map(project => {
-            if (project.cid == this.props.match.params.id) {
+            if (project.clientId == this.props.match.params.id) {
                     obj.push(project)
             }
 
@@ -59,12 +60,11 @@ class ProjectList extends Component {
                 obj.sort((a, b) => b.status.localeCompare(a.status));
             }
         }
-        let pp = obj.filter( (ele, ind) => ind === obj.findIndex( elem => elem.id === ele.id && elem.cid === ele.cid))
+        let pp = obj.filter( (ele, ind) => ind === obj.findIndex( elem => elem.id === ele.id && elem.clientId === ele.clientId))
 
         return pp;
     }
     render() {
-        //console.table(this.props.projects)
         
 
         return (
@@ -83,22 +83,7 @@ class ProjectList extends Component {
                             </label>
                         </td>
                         
-                        <td>{project.title}</td>
-                        <td>{project.status}</td>
-                        <td>
-                            {project.streetAddress}
-                            &nbsp;
-                            {project.unitNumber}
-                            &nbsp;
-                            {project.cityAddress}
-                            ,&nbsp;
-                            {project.stateAddress}
-                            &nbsp;
-                            {project.zipCode}
-                        </td>
-                        <td>
-                            ->
-                        </td>
+                        <ProjectSummary project={project} />
                         </tr>
                     )
                 })}
@@ -113,7 +98,7 @@ class ProjectList extends Component {
         <tbody>
             
             {projects && projects.map(project => {
-                if (project.cid == cid) {
+                if (project.clientId == clientId) {
                     return (
                         <ProjectSummary project={project}  key={project.id} />
                     )

@@ -9,6 +9,7 @@ import CreateProject from './components/projects/CreateProject'
 import CreateClient from './components/clients/CreateClient'
 import EditClient from './components/clients/EditClient';
 import EditProject from './components/projects/EditProject';
+import ProjectDetails from './components/projectdetails/ProjectDetail';
 function App() {
   return (
     <BrowserRouter>
@@ -16,13 +17,14 @@ function App() {
         <Navbar />
         <Switch>
           <Route exact path='/' component={Dashboard} />
-          <Route path='/client/:id/projects' component={ProjectTable} />
+          <Route exact path='/client/:id/projects' component={ProjectTable} />
           <Route path='/editclient/:id' component={EditClient} />
           <Route path='/editproject/:id' component={EditProject} />
           <Route path='/signin' component={SignIn} />
           <Route path='/signup' component={SignUp} />
           <Route path='/createclient' component={CreateClient} />
           <Route path='/:id/createproject' component={CreateProject} />
+          <Route path='/client/:id/projects/:id' component={ProjectDetails} />
         </Switch>
       </div>
     </BrowserRouter>

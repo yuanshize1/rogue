@@ -31,10 +31,9 @@ class ProjectTable extends Component {
         })
     }
     render(){
-
-        const { projects, auth, match } = this.props;
+        //console.log(this.props.location);
+        const { projects, auth, match, location } = this.props;
         if(!auth.uid) return <Redirect to='/signin' />
-        
         return (
             <>
                 <nav className="nav-extended grey">
@@ -43,6 +42,8 @@ class ProjectTable extends Component {
                         <ProjectLinks 
                             chosenProjects={this.state.chosenProjects} 
                             onChange={this.handleSortChange} 
+                            clientfirstname={this.props.location.clientfirstname}
+                            clientlastname={this.props.location.clientlastname}
                         />   
                     </div>
                 </nav>
@@ -62,6 +63,7 @@ class ProjectTable extends Component {
                             onChange={this.handleListChange} 
                             sortBy={this.state.sortBy} 
                             match={match}
+                            
                         />
                     </table>
                 </div>
@@ -71,9 +73,15 @@ class ProjectTable extends Component {
 }
 
 const mapStateToProps = (state) => {
-    //console.log(state);
+    
+    /*let currentClient = '';
+    console.log(state);
+    state.firestore.ordered.clients&&state.firestore.ordered.clients.forEach(client => {
+        
+    });*/
     return {
         //projects: state.project.projects
+        
         projects: state.firestore.ordered.projects,
         auth: state.firebase.auth
 

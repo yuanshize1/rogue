@@ -15,8 +15,14 @@ class ProjectLinks extends Component {
         this.handleSort = this.handleSort.bind(this);
     }
     handleCreate = () => {
-        let cid=this.props.match.params.id;
-        this.props.history.push('/'+cid+'/createproject')
+        
+        const link = {
+            pathname:'/' + this.props.match.params.id + '/createproject',
+            clientfirstname:this.props.clientfirstname,
+            clientlastname:this.props.clientlastname
+        }
+        //let clientId=this.props.match.params.id;
+        this.props.history.push(link)
     }
     
     handleDelete = () => {
@@ -65,7 +71,7 @@ class ProjectLinks extends Component {
 
     render () {
 
-        
+        //console.log(this.props)
         return(
             <ul className="tabs tabs-transparent">
                 <li><button onClick={this.handleCreate} >Create</button></li>

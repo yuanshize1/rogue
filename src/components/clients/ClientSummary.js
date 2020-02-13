@@ -1,10 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import ProjectTable from '../projects/ProjectTable'
 const ClientSummary = ({client}) => {
     //<td>Posted by {project.authorFirstName} {project.authorLastName}</td>
     //<td>{moment(project.createdAt.toDate()).calendar()}</td>
-
+        const link = {
+            pathname:'/client/' + client.id + '/projects',
+            clientfirstname:client.firstName,
+            clientlastname:client.lastName
+        }
         return (
             <>
 
@@ -18,7 +22,13 @@ const ClientSummary = ({client}) => {
                 <td>{client.primaryContact}</td>
                 <td>{client.secondaryContact}</td>
                 <td>
-                    <Link to={'/client/' + client.id + '/projects'} key={client.id}>link</Link>
+                    
+                    <Link 
+                        to={link} 
+                        key={client.id} 
+                    >
+                        link
+                    </Link>
                 </td>
             </>
     

@@ -12,7 +12,9 @@ class CreateProject extends Component {
         cityAddress: '',
         stateAddress: '',
         zipCode: '',
-        cid: this.props.match.params.id,
+        clientId: this.props.match.params.id,
+        clientFirstName: this.props.location.clientfirstname,
+        clientLastName: this.props.location.clientlastname,
         content: ''
     }
     handleChange = (e) => {
@@ -23,11 +25,34 @@ class CreateProject extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        //console.log(this.props)
+        const fname = this.props.location.clientfirstname;
+        const lname = this.props.location.clientlastname;
+        this.setState({
+            clientId: this.props.match.params.id,
+            clientFirstName: fname,
+            clientLastName: lname
+        })
+        const link = {
+            pathname:'/client/'+this.props.match.params.id+'/projects',
+            clientfirstname:fname,
+            clientlastname:lname
+        }
+        //console.log(this.props);
+        /*
+        console.log(this.props);
+        this.props.clients && this.props.clients.forEach(client => {
+            if(client.id==this.props.match.params.id)
+                this.setState({
+                    clientFistName:client.firstName,
+                    clientLastName:client.lastName
+                })
+        });
+        */
         this.props.createProject(this.state)
-        this.props.history.push('/client/'+this.props.match.params.id+'/projects')
+        this.props.history.push(link)
     }
     render() {
+
         //console.log(this.props)
         const { auth } = this.props;
         if(!auth.uid) return <Redirect to='/signin' />
@@ -81,6 +106,7 @@ class CreateProject extends Component {
 const mapStateToProps = (state) => {
     return {
         auth: state.firebase.auth
+        
     }
 }
 
