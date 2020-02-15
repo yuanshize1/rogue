@@ -11,30 +11,41 @@ import Invoices from './Invoices'
 import Tasks from './Tasks'
 class ProjectDetail extends Component {
     render() {
-        console.log(this.props)
-        const path = this.props.location.pathname;
-        /*
-        this.props.projects && this.props.projects.forEach(project => {
-            if(project.id == this.props.match.params.id){
-                    const projectTitle = project.title;
-                    const clientFirstName = project.clientFirstName;
-                    const clientLastName = project.clientLastName;
-                    const clientId = project.clientId;
-            }
-                
-        });*/
+        if(this.props.projects){
+            var result = this.props.projects.filter(obj => {
+                return obj.id === this.props.match.params.project_id
+              })
+        }
+        //if(result) console.log(result)
+        const path = '/client/'+this.props.match.params.project_id+'/projects/'+this.props.match.params.project_id;
         return (
-            <BrowserRouter>
-                <div>
-                    <h1>clients ->  {this.props.location.project.clientFirstName} </h1>
-                    <Toolbar path={path}/>
-                    <Switch>
-                        <Route path='/client/:id/projects/:id/documents' component={Documents} />
-                        <Route path='/client/:id/projects/:id/invoices' component={Invoices} />
-                        <Route path='/client/:id/projects/:id/tasks' component={Tasks} />
-                    </Switch>
-                </div>
-            </BrowserRouter>
+            <div className="container">
+                <nav className="nav-extended grey">
+                    <div className="container">
+                        <h5>clients ->  
+                            {result ? 
+                            result[0].clientFirstName+
+                            ' '+result[0].clientLastName+
+                            ' -> '+result[0].title
+                            :
+                            'loading client details...'} 
+                        
+                        </h5>
+                    </div>
+                </nav>
+                <BrowserRouter>
+                    <div>
+                        <Toolbar path={path} />
+                        <Switch>
+                            <Route path={path+'/documents'} component={Documents} />
+                            <Route path={path+'/invoices'} component={Invoices} />
+                            <Route path={path+'/tasks'} component={Tasks} />
+                        </Switch>
+                    </div>
+                </BrowserRouter>
+
+            </div>
+
 
             
         )
@@ -42,7 +53,7 @@ class ProjectDetail extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    console.log(state)
+    //console.log(state)
     return {
         projects: state.firestore.ordered.projects,
         auth: state.firebase.auth

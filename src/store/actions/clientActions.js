@@ -35,23 +35,7 @@ export const editClient = (client, id) => {
         if(client.email) firestore.collection('clients').doc(id).update({email: client.email})
         if(client.primaryContact) firestore.collection('clients').doc(id).update({primaryContact: client.primaryContact})
         if(client.secondaryContact) firestore.collection('clients').doc(id).update({secondaryContact: client.secondaryContact})
-        /*
-        else console.log('ll')
-        firestore.collection('clients').doc(id).update({
-            firstName: client.firstName,
-            lastName: client.lastName,
-            role: client.role,
-            email: client.email,
-            primaryContact: client.primaryContact,
-            secondaryContact: client.secondaryContact
-        }).then(() => {
-            dispatch({type: 'UPDATE_CLIENT', client })
-        }).catch((err) => {
-            dispatch({type: 'UPDATE_CLIENT_ERROR', err })
-        })
-*/
 
-       
     }
     
 };

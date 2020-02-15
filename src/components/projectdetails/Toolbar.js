@@ -6,17 +6,16 @@ import { connect } from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
-
+import Invoices from './Invoices'
+import Tasks from './Tasks'
 class Toolbar extends Component {
-    state = {
-        path:this.props.location.pathname
-    }
+
     //auth.isLoaded waiting for Auth Ready so the links don't flash
     render() {
-        //console.log(this.props);
+        console.log(this.props);
 
         
-
+        const path = this.props.path;
         return(
             <div>
                 <Helmet>
@@ -24,7 +23,7 @@ class Toolbar extends Component {
                 </Helmet>
     
                 <Sidebar as={Menu} inverted visible vertical width="thin" icon="labeled">
-                    <Link to={this.state.path+'/documents'}>
+                    <Link to={path+'/documents'}>
                         <Menu.Item name="Documents">
                             <Icon name="home" />
                             Documents
@@ -40,13 +39,13 @@ class Toolbar extends Component {
                             Calender
                         </Menu.Item>
                     </a>
-                    <Link to={this.state.path+'/invoices'}>
+                    <Link to={path+'/invoices'} >
                         <Menu.Item name="Invoices">
                             <Icon name="home" />
                             Invoices
                         </Menu.Item>
                     </Link>
-                    <Link to={this.state.path+'/tasks'}>
+                    <Link to={path+'/tasks'} >
                         <Menu.Item name="Tasks">
                             <Icon name="home" />
                             Tasks

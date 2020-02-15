@@ -13,7 +13,7 @@ class Documents extends Component {
     
         return(
             <div>
-                document
+                Place holder for Documents component
     
             </div>
         )

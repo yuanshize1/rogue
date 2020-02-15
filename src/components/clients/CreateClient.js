@@ -10,7 +10,12 @@ class CreateClient extends Component {
         role: '',
         email: '',
         primaryContact: '',
-        secondaryContact: ''
+        secondaryContact: '',
+        firstNameError: '',
+        lastNameError: '',
+        roleError: '',
+        emailError: '',
+        primaryContactError: ''
     }
     handleChange = (e) => {
         this.setState({
@@ -18,48 +23,131 @@ class CreateClient extends Component {
         })
     }
 
+    validate = () => {
+        let firstNameError= '';
+        let lastNameError= '';
+        let emailError='';
+        let roleError='';
+        let primaryContactError='';
+
+        if (!this.state.firstName) {
+            firstNameError = 'Firstname cannot be blank'
+        }
+
+        if (!this.state.lastName) {
+            lastNameError = 'Lastname cannot be blank'
+        }
+
+        if (this.state.role == 'choose') {
+            roleError = 'must select role'
+        }
+
+        if (!this.state.role) {
+            roleError = 'must select role'
+        }
+
+        if (!this.state.email.includes('@')) {
+            emailError = 'invalid email';
+        }
+
+        if (!this.state.email.includes('.')) {
+            emailError = 'invalid email';
+        }
+
+        if (!this.state.primaryContact) {
+            primaryContactError = 'primary contact cannot be blank'
+        }
+        //setting state with object, awesome js syntax
+        if (emailError || firstNameError || lastNameError || roleError || primaryContactError) {
+            this.setState({ emailError, firstNameError, lastNameError, roleError, primaryContactError });
+            return false;
+        }
+
+        return true;
+
+    }
     handleSubmit = (e) => {
         e.preventDefault();
-        //console.log(this.state)
-        this.props.createClient(this.state)
+        const isValid = this.validate();
+        if (isValid) {
+            this.props.createClient(this.state)
+            this.props.history.push('/')
+        }
+
+    }
+
+    handleCancel = (e) => {
+        e.preventDefault();
         this.props.history.push('/')
     }
+
     render() {
         const { auth } = this.props;
         if(!auth.uid) return <Redirect to='/signin' />
         return (
             <div className="container">
-                <form onSubmit={this.handleSubmit} className="white">
+                <form className="white">
                     <h5 className="grey-text">
                         Create Client
                     </h5>
                     <div className="input-field">
                         <label htmlFor="title">First name</label>
                         <input type="text" id="firstName" onChange={this.handleChange}/>
+                        {this.state.firstNameError ? (
+                            <div style={{fontSize:12, color: "red"}}>
+                                {this.state.firstNameError}
+                            </div>
+                        ) : null}
                     </div>
                     <div className="input-field">
                         <label htmlFor="title">Last name</label>
                         <input type="text" id="lastName" onChange={this.handleChange}/>
+                        {this.state.lastNameError ? (
+                            <div style={{fontSize:12, color: "red"}}>
+                                {this.state.lastNameError}
+                            </div>
+                        ) : null}
                     </div>
-                    <select className="browser-default" id="role" onChange={this.handleChange} defaultValue="choose">
-                        <option value="choose" disabled>Choose a role</option>
-                        <option value="engineer">Engineer</option>
-                        <option value="manager">Manager</option>
-                    </select>
+                    <div>
+                        <select className="browser-default" id="role" onChange={this.handleChange} defaultValue="choose">
+                            <option value="choose" disabled>Choose a role</option>
+                            <option value="engineer">Engineer</option>
+                            <option value="manager">Manager</option>
+                        </select>
+                        {this.state.roleError ? (
+                            <div style={{fontSize:12, color: "red"}}>
+                                {this.state.roleError}
+                            </div>
+                        ) : null}
+                    </div>
+
                     <div className="input-field">
                         <label htmlFor="email">email</label>
                         <input type="text" id="email" onChange={this.handleChange}/>
+                        {this.state.emailError ? (
+                            <div style={{fontSize:12, color: "red"}}>
+                                {this.state.emailError}
+                            </div>
+                        ) : null}
                     </div>
                     <div className="input-field">
                         <label htmlFor="title">Primary phone number</label>
                         <input type="text" id="primaryContact" onChange={this.handleChange}/>
+                        {this.state.primaryContactError ? (
+                            <div style={{fontSize:12, color: "red"}}>
+                                {this.state.primaryContactError}
+                            </div>
+                        ) : null}
                     </div>
                     <div className="input-field">
                         <label htmlFor="title">Secondary Contacy</label>
                         <input type="text" id="secondaryContact" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
-                        <button className="btn">Create</button>
+                        <button className="btn" onClick={this.handleSubmit}>Create</button>
+                    </div>
+                    <div className="input-field">
+                        <button className="btn" onClick={this.handleCancel}>Cancel</button>
                     </div>
                 </form>
             </div>

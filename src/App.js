@@ -19,12 +19,12 @@ function App() {
           <Route exact path='/' component={Dashboard} />
           <Route exact path='/client/:id/projects' component={ProjectTable} />
           <Route path='/editclient/:id' component={EditClient} />
-          <Route path='/editproject/:id' component={EditProject} />
+          <Route path='/client/:client_id/editproject/:project_id' component={EditProject} />
           <Route path='/signin' component={SignIn} />
           <Route path='/signup' component={SignUp} />
           <Route path='/createclient' component={CreateClient} />
           <Route path='/:id/createproject' component={CreateProject} />
-          <Route path='/client/:id/projects/:id' component={ProjectDetails} />
+          <Route path='/client/:client_id/projects/:project_id' component={ProjectDetails} />
         </Switch>
       </div>
     </BrowserRouter>

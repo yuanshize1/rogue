@@ -13,7 +13,7 @@ class Invoices extends Component {
     
         return(
             <div>
-                Invoices
+                Place holder for Invoices component
     
             </div>
         )

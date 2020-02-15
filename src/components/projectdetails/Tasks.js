@@ -13,7 +13,7 @@ class Tasks extends Component {
     
         return(
             <div>
-                Tasks
+                Place holder for Tasks component
     
             </div>
         )
