@@ -29,7 +29,8 @@ class Toolbar extends Component {
                             Documents
                         </Menu.Item>
                     </Link>
-                    <a
+
+{/*                    <a
                         target="_blank"
                         href="https://calendar.google.com/calendar/r"
                         rel="noopener noreferrer"
@@ -38,7 +39,13 @@ class Toolbar extends Component {
                             <Icon name="calendar outline" />
                             Calender
                         </Menu.Item>
-                    </a>
+</a>*/}
+                    <Link to={path+'/calendar'} >
+                        <Menu.Item name="Calendar">
+                            <Icon name="home" />
+                            Calendar
+                        </Menu.Item>
+                    </Link>
                     <Link to={path+'/invoices'} >
                         <Menu.Item name="Invoices">
                             <Icon name="home" />

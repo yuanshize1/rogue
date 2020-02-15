@@ -9,6 +9,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Documents from './Documents'
 import Invoices from './Invoices'
 import Tasks from './Tasks'
+import Calendar from './Calendar'
 class ProjectDetail extends Component {
     render() {
         if(this.props.projects){
@@ -39,6 +40,7 @@ class ProjectDetail extends Component {
                         <Switch>
                             <Route path={path+'/documents'} component={Documents} />
                             <Route path={path+'/invoices'} component={Invoices} />
+                            <Route path={path+'/calendar'} component={Calendar} />
                             <Route path={path+'/tasks'} component={Tasks} />
                         </Switch>
                     </div>
