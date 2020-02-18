@@ -22,8 +22,8 @@ class CreateProject extends Component {
 
         clientId: this.props.match.params.id,
         clientFirstName: this.props.location.clientfirstname,
-        clientLastName: this.props.location.clientlastname,
-        content: ''
+        clientLastName: this.props.location.clientlastname
+
     }
     handleChange = (e) => {
         this.setState({

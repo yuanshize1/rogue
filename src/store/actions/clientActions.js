@@ -6,7 +6,13 @@ export const createClient = (client) => {
         const profile = getState().firebase.profile;
         const authorId = getState().firebase.auth.uid;
         firestore.collection('clients').add({
-            ...client,
+            email:client.email,
+            firstName:client.firstName,
+            lastName:client.lastName,
+            primaryContact:client.primaryContact,
+            secondaryContact:client.secondaryContact,
+            role:client.role,
+            username:client.username,
             authorFirstName: profile.firstName,
             authorLastName: profile.lastName,
             authorID: authorId,

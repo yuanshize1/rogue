@@ -85,13 +85,13 @@ class EditClient extends Component {
         const isValid = this.validate();
         if (isValid) {
             this.props.editClient(this.state, this.props.match.params.id)
-            this.props.history.push('/')
+            this.props.history.push('/client')
         }
     }
 
     handleCancel = (e) => {
         e.preventDefault();
-        this.props.history.push('/')
+        this.props.history.push('/client')
     }
 
     render() {

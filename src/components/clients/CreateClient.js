@@ -11,11 +11,14 @@ class CreateClient extends Component {
         email: '',
         primaryContact: '',
         secondaryContact: '',
+        username: '',
+
         firstNameError: '',
         lastNameError: '',
         roleError: '',
         emailError: '',
-        primaryContactError: ''
+        primaryContactError: '',
+        usernameError: ''
     }
     handleChange = (e) => {
         this.setState({
@@ -29,13 +32,17 @@ class CreateClient extends Component {
         let emailError='';
         let roleError='';
         let primaryContactError='';
-
+        let usernameError='';
         if (!this.state.firstName) {
             firstNameError = 'Firstname cannot be blank'
         }
 
         if (!this.state.lastName) {
             lastNameError = 'Lastname cannot be blank'
+        }
+
+        if (!this.state.username) {
+            usernameError = 'username cannot be blank'
         }
 
         if (this.state.role == 'choose') {
@@ -58,8 +65,8 @@ class CreateClient extends Component {
             primaryContactError = 'primary contact cannot be blank'
         }
         //setting state with object, awesome js syntax
-        if (emailError || firstNameError || lastNameError || roleError || primaryContactError) {
-            this.setState({ emailError, firstNameError, lastNameError, roleError, primaryContactError });
+        if (emailError || firstNameError || lastNameError || roleError || primaryContactError || usernameError) {
+            this.setState({ emailError, firstNameError, lastNameError, roleError, primaryContactError, usernameError });
             return false;
         }
 
@@ -71,14 +78,14 @@ class CreateClient extends Component {
         const isValid = this.validate();
         if (isValid) {
             this.props.createClient(this.state)
-            this.props.history.push('/')
+            this.props.history.push('/client')
         }
 
     }
 
     handleCancel = (e) => {
         e.preventDefault();
-        this.props.history.push('/')
+        this.props.history.push('/client')
     }
 
     render() {
@@ -105,6 +112,15 @@ class CreateClient extends Component {
                         {this.state.lastNameError ? (
                             <div style={{fontSize:12, color: "red"}}>
                                 {this.state.lastNameError}
+                            </div>
+                        ) : null}
+                    </div>
+                    <div className="input-field">
+                        <label htmlFor="title">username</label>
+                        <input type="text" id="username" onChange={this.handleChange}/>
+                        {this.state.usernameError ? (
+                            <div style={{fontSize:12, color: "red"}}>
+                                {this.state.usernameError}
                             </div>
                         ) : null}
                     </div>
@@ -140,7 +156,7 @@ class CreateClient extends Component {
                         ) : null}
                     </div>
                     <div className="input-field">
-                        <label htmlFor="title">Secondary Contacy</label>
+                        <label htmlFor="title">Secondary Contact</label>
                         <input type="text" id="secondaryContact" onChange={this.handleChange}/>
                     </div>
                     <div className="input-field">
