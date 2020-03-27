@@ -6,7 +6,13 @@ export const createClient = (client) => {
         const profile = getState().firebase.profile;
         const authorId = getState().firebase.auth.uid;
         firestore.collection('clients').add({
-            ...client,
+            email:client.email,
+            firstName:client.firstName,
+            lastName:client.lastName,
+            primaryContact:client.primaryContact,
+            secondaryContact:client.secondaryContact,
+            role:client.role,
+            username:client.username,
             authorFirstName: profile.firstName,
             authorLastName: profile.lastName,
             authorID: authorId,
@@ -23,6 +29,19 @@ export const createClient = (client) => {
     
 };
 
-export const deleteClient = (client) => {
-    console.log("dispatch", client)
+export const editClient = (client, id) => {
+    //dispatch method dispatches action to reducer
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        //make async call to database
+        const firestore = getFirestore();
+        console.log(client)
+        if(client.firstName) firestore.collection('clients').doc(id).update({firstName: client.firstName})
+        if(client.lastName) firestore.collection('clients').doc(id).update({lastName: client.lastName})
+        if(client.role) firestore.collection('clients').doc(id).update({role: client.role})
+        if(client.email) firestore.collection('clients').doc(id).update({email: client.email})
+        if(client.primaryContact) firestore.collection('clients').doc(id).update({primaryContact: client.primaryContact})
+        if(client.secondaryContact) firestore.collection('clients').doc(id).update({secondaryContact: client.secondaryContact})
+
+    }
+    
 };

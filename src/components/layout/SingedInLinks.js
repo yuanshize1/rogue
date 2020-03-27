@@ -10,7 +10,8 @@ const SignedInLinks = (props) => {
         <ul className="right">
             <li><a onClick={props.signOut}>Log Out</a></li>
             <li>
-                <NavLink to='/' className='btn'>
+                <NavLink to='/client' className='btn '>
+                
                     {props.profile.initials}
                 </NavLink>
             </li>
@@ -23,5 +24,5 @@ const mapDispatchToProps = (dispatch) => {
         signOut: () => dispatch(signOut())
     }
 }
-
+ 
 export default connect(null, mapDispatchToProps)(SignedInLinks)

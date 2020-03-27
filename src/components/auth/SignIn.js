@@ -21,7 +21,7 @@ class SignIn extends Component {
     }
     render() {
         const { authError, auth } = this.props;
-        if(auth.uid) return <Redirect to='/' />      
+        if(auth.uid) return <Redirect to='/client' />      
         return (
             <div className="container">
                 <form onSubmit={this.handleSubmit} className="white">
