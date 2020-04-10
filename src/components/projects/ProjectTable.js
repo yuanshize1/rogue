@@ -9,7 +9,7 @@ import firebase from 'firebase/app'
 import { Link } from 'react-router-dom'
 import { Icon, Select, Breadcrumb } from 'semantic-ui-react'
 import { Button, Step } from 'semantic-ui-react'
-import faker from 'faker'
+import faker from 'Faker'
 
 class ProjectTable extends Component {
     state = {
@@ -131,6 +131,7 @@ class ProjectTable extends Component {
 
     render(){
         //console.log(this.props)
+    
         const columns = [
             {   
                 id: 'col1',
@@ -169,7 +170,7 @@ class ProjectTable extends Component {
 
         let cc = this.getCurrentClient();
         const { projects, auth } = this.props;
-        //if(!auth.uid) return <Redirect to='/signin' />
+        if(auth.isLoaded && !auth.uid) return <Redirect to='/signin' />
         const cid = this.props.match.params.id;
 
         if(projects){
@@ -309,6 +310,7 @@ const mapStateToProps = (state) => {
 
     }
 }
+
 export default compose(
     connect(mapStateToProps),
     firestoreConnect([

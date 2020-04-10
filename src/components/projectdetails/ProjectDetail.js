@@ -9,7 +9,7 @@ import Calendar from './calendar/Calendar';
 import Invoices from './invoices/Invoices';
 import Tasks from './tasks/Tasks';
 import { Icon, Button } from 'semantic-ui-react';
-import faker from 'faker';
+import faker from 'Faker';
 import firebase from 'firebase/app';
 class ProjectDetail extends Component {
     state = {

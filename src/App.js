@@ -10,8 +10,7 @@ import CreateClient from './components/clients/CreateClient'
 import EditClient from './components/clients/EditClient';
 import EditProject from './components/projects/EditProject';
 import ProjectDetails from './components/projectdetails/ProjectDetail';
-import Dashboard from './components/dashboard/Dashboard';
-import NotFoundPage from './components/dashboard/NotFoundPage'
+import NotFoundPage from './components/layout/NotFoundPage'
 
 function App() {
   return (
@@ -19,7 +18,7 @@ function App() {
       <div className="App" style={{backgroundImage:'linear-gradient(to bottom right, #ffffff, #bdbdbd)'}}>
         <Navbar />
         <Switch>
-          <Route exact path='/' component={Dashboard} />
+          <Route exact path='/' component={ClientTable} />
           <Redirect exact from="/" to="ClientTable" />
           <Route exact path='/client' component={ClientTable} />
           <Route exact path='/client/:id/projects' component={ProjectTable} />

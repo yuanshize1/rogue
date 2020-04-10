@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 import ReactTable from 'react-table-v6'
 import { Icon, Select, Breadcrumb } from 'semantic-ui-react'
 import { Button, Step } from 'semantic-ui-react'
-import faker from 'faker'
+import faker from 'Faker'
 
 class Dashboard extends Component {
     state = {
@@ -132,7 +132,7 @@ class Dashboard extends Component {
             }
         ]
         const { clients, auth } = this.props;
-        if(!auth.uid) return <Redirect to='/signin' />
+        if(auth.isLoaded && !auth.uid) return <Redirect to='/signin' />
 
         return (
             <div className="dashboard container" style={{paddingTop:50, minWidth:1000, minHeight:1200}}>
