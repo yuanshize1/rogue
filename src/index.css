@@ -14,9 +14,21 @@ body {
   min-height: 100%;
 }
 
-form{
-  padding: 20px;
-  margin-top: 60px;
+.ReactTable .rt-thead {
+  font-size: 16px;
+  font-weight: 600;
+}
+.ReactTable .rt-tbody .rt-td {
+  border-bottom: 0.5px solid rgba(200, 200, 200, 0.8);
+  border-left: 0.5px solid rgba(200, 200, 200, 0.8);
+}
+
+.modal {
+  height: auto;
+  top: auto;
+  left: auto;
+  bottom: auto;
+  right: auto;
 }
 
 form button, form h5{

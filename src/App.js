@@ -11,6 +11,7 @@ import EditClient from './components/clients/EditClient';
 import EditProject from './components/projects/EditProject';
 import ProjectDetails from './components/projectdetails/ProjectDetail';
 import NotFoundPage from './components/layout/NotFoundPage'
+import Dashboard from './components/dashboard/Dashboard';
 
 function App() {
   return (
@@ -18,9 +19,9 @@ function App() {
       <div className="App" style={{backgroundImage:'linear-gradient(to bottom right, #ffffff, #bdbdbd)'}}>
         <Navbar />
         <Switch>
-          <Route exact path='/' component={ClientTable} />
-          <Redirect exact from="/" to="ClientTable" />
+          <Route exact path='/' component={Dashboard} />
           <Route exact path='/client' component={ClientTable} />
+          <Route exact path='/project' component={ProjectTable} />
           <Route exact path='/client/:id/projects' component={ProjectTable} />
           <Route path='/editclient/:id' component={EditClient} />
           <Route path='/client/:client_id/editproject/:project_id' component={EditProject} />
@@ -28,7 +29,7 @@ function App() {
           <Route path='/signup' component={SignUp} />
           <Route path='/createclient' component={CreateClient} />
           <Route path='/:id/createproject' component={CreateProject} />
-          <Route path='/client/:client_id/projects/:project_id/' component={ProjectDetails} />
+          <Route path='/project/:project_id/' component={ProjectDetails} />
          
           <Route path="/404" component={NotFoundPage} />
           <Redirect to="/404" />

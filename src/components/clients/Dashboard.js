@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 import ReactTable from 'react-table-v6'
 import { Icon, Select, Breadcrumb } from 'semantic-ui-react'
 import { Button, Step } from 'semantic-ui-react'
-import faker from 'Faker'
+import faker from 'faker'
 
 class Dashboard extends Component {
     state = {
@@ -118,15 +118,25 @@ class Dashboard extends Component {
                 Cell: (row) => (
                         
                         <div>
-                            <Link to={'/client/'+row.original.id+'/projects/'} >
-                                <Button animated style={{backgroundColor: '#fafafa'}}>
+                            
+                                <Button animated style={{backgroundColor: '#fafafa'}}
+                                    as={ Link }
+                                    to={{
+                                        pathname: '/client/'+row.original.id+'/projects/',
+                                        state: {
+                                            firstName: row.original.firstName,
+                                            lastName: row.original.lastName,
+                                            id: row.original.id
+                                        }
+                                    }}
+                                >
                                     <Button.Content visible >Projects</Button.Content>
                                     <Button.Content hidden>
                                         <Icon name='arrow right' />
                                     </Button.Content>
                                 </Button>
                             
-                            </Link>
+                        
                         </div>
                     )
             }
@@ -135,7 +145,7 @@ class Dashboard extends Component {
         if(auth.isLoaded && !auth.uid) return <Redirect to='/signin' />
 
         return (
-            <div className="dashboard container" style={{paddingTop:50, minWidth:1000, minHeight:1200}}>
+            <div className="dashboard container" style={{minWidth:1000, minHeight:1200}}>
                 
    
 

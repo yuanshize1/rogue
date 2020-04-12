@@ -5,6 +5,7 @@ export const createProject = (project) => {
         const firestore = getFirestore();
         const profile = getState().firebase.profile;
         const authorId = getState().firebase.auth.uid;
+        console.log(project);
         firestore.collection('projects').add({
             title: project.title,
             status: project.status,
