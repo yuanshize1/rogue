@@ -1,80 +1,29 @@
 import React, { Component } from 'react'
-//import ProjectList from '../projects/ProjectList'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { Redirect } from 'react-router-dom'
-import ClientList from '../clients/ClientList'
-import ClientLinks from '../layout/ClientLinks'
+import firebase from 'firebase/app'
+import { Link } from 'react-router-dom'
+import ReactTable from 'react-table-v6'
+import { Icon, Select, Breadcrumb } from 'semantic-ui-react'
+import { Button, Step } from 'semantic-ui-react'
+import faker from 'Faker'
 
 class Dashboard extends Component {
-    /*
-                <div className="dashboard container">
-                <table className="highlight">
-                    <thead>
-                        <tr>
-                            <th>Select</th>
-                            <th>Name</th>
-                            <th>Status</th>
-                            <th>Address</th>
-                            <th>Details</th>
-                        </tr>
-                    </thead>
-                    <ProjectList projects={projects} />
-                </table>
-            </div>
-    */
-    render(){
-        console.log(this.props)
-        const { clients, auth } = this.props;
-        if(!auth.uid) return <Redirect to='/signin' />
+
+    render() {
         return (
-            <>
-            <nav className="nav-extended grey">
-                <div className="container">
-                    <h5 className="center">Clients</h5>
-                    <ClientLinks />  
-                </div>
-            </nav>
-            <div className="dashboard container">
-                <table className="highlight">
-                    <thead>
-                        <tr>
-                            <th>Select</th>
-                            <th>Name(A-Z)</th>
-                            <th>Role</th>
-                            <th>Email</th>
-                            <th>Primary Phone</th>
-                            <th>Add. Contacts</th>
-                            <th>Projects</th>
-                        </tr>
-                    </thead>
-                    <ClientList clients={clients} />
-                </table>
+            <div className="dashboard container" style={{paddingTop:50, minWidth:1000, minHeight:1200}}>
+                <h1>Dashboard</h1>
             </div>
-            </>
         )
     }
+        
 }
-/*
-const mapStateToProps = (state) => {
-    console.log(state);
-    return {
-        //projects: state.project.projects
-        projects: state.firestore.ordered.projects,
-        auth: state.firebase.auth
 
-    }
-}
-export default compose(
-    connect(mapStateToProps),
-    firestoreConnect([
-        {collection: 'projects', orderBy: ['createdAt', 'desc']}
-    ])
-)(Dashboard)
-*/
 const mapStateToProps = (state) => {
-    console.log(state);
+    //console.log(state);
     return {
         //projects: state.project.projects
         clients: state.firestore.ordered.clients,
@@ -85,6 +34,6 @@ const mapStateToProps = (state) => {
 export default compose(
     connect(mapStateToProps),
     firestoreConnect([
-        {collection: 'clients', orderBy: ['firstName', 'desc']}
+        {collection: 'clients', orderBy: ['createdAt', 'desc']}
     ])
 )(Dashboard)

@@ -12,45 +12,142 @@ class CreateProject extends Component {
         cityAddress: '',
         stateAddress: '',
         zipCode: '',
-        cid: this.props.match.params.id,
-        content: ''
+
+        titleError: '',
+        statusError: '',
+        streetAddressError: '',
+        cityAddressError: '',
+        stateAddressError: '',
+        zipCodeError: '',
+
+        clientId: this.props.match.params.id,
+        clientFirstName: this.props.location.clientfirstname,
+        clientLastName: this.props.location.clientlastname
+
     }
     handleChange = (e) => {
         this.setState({
             [e.target.id]: e.target.value
         })
     }
+    validate = () => {
+        let titleError= '';
+        let statusError= '';
+        let streetAddressError= '';
+        let cityAddressError= '';
+        let stateAddressError= '';
+        let zipCodeError= '';
+
+
+        if (!this.state.title) {
+            titleError = 'Title cannot be blank'
+        }
+
+        if (this.state.status == 'choose') {
+            statusError = 'must select status'
+        }
+
+        if (!this.state.status) {
+            statusError = 'must select status'
+        }
+
+        if (!this.state.streetAddress) {
+            streetAddressError = 'Street Address cannot be blank'
+        }
+
+        if (!this.state.cityAddress) {
+            cityAddressError = 'City cannot be blank'
+        }
+
+        if (!this.state.stateAddress) {
+            stateAddressError = 'State cannot be blank'
+        }
+
+        if (!this.state.zipCode) {
+            zipCodeError = 'zip code cannot be blank'
+        }
+
+        if (this.state.zipCode.length != 5) {
+            zipCodeError = 'invalid zip code'
+        }
+
+        /*
+        if (!(!this.state.zipCode.match("^[0-9 ]*$"))) {
+            zipCodeError = 'zip code can only have numbers in the US'
+        }
+        */
+        //setting state with object, awesome js syntax
+        if (titleError || statusError || streetAddressError || cityAddressError || stateAddressError || zipCodeError) {
+            this.setState({ titleError, statusError, streetAddressError, cityAddressError, stateAddressError, zipCodeError });
+            return false;
+        }
+
+        return true;
+
+    }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        //console.log(this.props)
-        this.props.createProject(this.state)
-        this.props.history.push('/client/'+this.props.match.params.id+'/projects')
+        const isValid = this.validate();
+        if (isValid) {
+            const link = {
+                pathname:'/client/'+this.props.match.params.id+'/projects'
+            }
+            this.props.createProject(this.state)
+            this.props.history.push(link)
+        }
+
+
     }
+
+    handleCancel = (e) => {
+        e.preventDefault();
+        const link = {
+            pathname:'/client/'+this.props.match.params.id+'/projects'
+        }
+        this.props.history.push(link)
+    }
+
     render() {
-        console.log(this.props)
         const { auth } = this.props;
         if(!auth.uid) return <Redirect to='/signin' />
 
         return (
             <div className="container">
-                <form onSubmit={this.handleSubmit} className="white">
+                <form className="white">
                     <h5 className="grey-text">
                         Create Project
                     </h5>
                     <div className="input-field">
-                        <label htmlFor="title">Name</label>
+                        <label htmlFor="title">Title</label>
                         <input type="text" id="title" onChange={this.handleChange}/>
+                        {this.state.titleError ? (
+                            <div style={{fontSize:12, color: "red"}}>
+                                {this.state.titleError}
+                            </div>
+                        ) : null}
                     </div>
-                    <label>Status</label>
-                    <select className="browser-default" id="status" onChange={this.handleChange}>
-                        <option value="" disabled selected>Choose a Status</option>
-                        <option value="Ongoing">Ongoing</option>
-                        <option value="Completed">Completed</option>
-                    </select>
+                    <div className="input-field">
+                        <select className="browser-default" id="status" onChange={this.handleChange} defaultValue="0" >
+                            <option value="0" disabled>Choose a Status</option>
+                            <option value="Ongoing">Ongoing</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                        {this.state.statusError ? (
+                            <div style={{fontSize:12, color: "red"}}>
+                                {this.state.statusError}
+                            </div>
+                        ) : null}
+                    </div>
+
                     <div className="input-field">
                         <label htmlFor="title">Street address</label>
                         <input type="text" id="streetAddress" onChange={this.handleChange}/>
+                        {this.state.streetAddressError ? (
+                            <div style={{fontSize:12, color: "red"}}>
+                                {this.state.streetAddressError}
+                            </div>
+                        ) : null}
                     </div>
                     <div className="input-field">
                         <label htmlFor="title">Apartment/Unit No.</label>
@@ -59,23 +156,36 @@ class CreateProject extends Component {
                     <div className="input-field">
                         <label htmlFor="title">City</label>
                         <input type="text" id="cityAddress" onChange={this.handleChange}/>
+                        {this.state.cityAddressError ? (
+                            <div style={{fontSize:12, color: "red"}}>
+                                {this.state.cityAddressError}
+                            </div>
+                        ) : null}
                     </div>
                     <div className="input-field">
                         <label htmlFor="title">State</label>
                         <input type="text" id="stateAddress" onChange={this.handleChange}/>
+                        {this.state.stateAddressError ? (
+                            <div style={{fontSize:12, color: "red"}}>
+                                {this.state.stateAddressError}
+                            </div>
+                        ) : null}
                     </div>
                     <div className="input-field">
                         <label htmlFor="title">ZIP code</label>
                         <input type="text" id="zipCode" onChange={this.handleChange}/>
+                        {this.state.zipCodeError ? (
+                            <div style={{fontSize:12, color: "red"}}>
+                                {this.state.zipCodeError}
+                            </div>
+                        ) : null}
                     </div>
                     <div className="input-field">
-                        <label htmlFor="content">project content</label>
-                        <textarea id='content' className="materialize-textarea" onChange={this.handleChange}></textarea>
+                        <button className="btn" onClick={this.handleSubmit}>Create</button>
                     </div>
                     <div className="input-field">
-                        <button className="btn">Create</button>
+                        <button className="btn" onClick={this.handleCancel}>Cancel</button>
                     </div>
-
                 </form>
             </div>
         )
@@ -85,6 +195,7 @@ class CreateProject extends Component {
 const mapStateToProps = (state) => {
     return {
         auth: state.firebase.auth
+        
     }
 }
 
